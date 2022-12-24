@@ -1,8 +1,8 @@
 {
   "name": "wd-bidi",
-  "version": "0.0.1",
+  "version": "0.0.4-alpha-1",
   "description": "",
-  "main": "./build/index.js",
+  "main": "build/index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "build": "tsc"
