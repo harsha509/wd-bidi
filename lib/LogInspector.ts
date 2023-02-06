@@ -57,12 +57,11 @@ class LogInspector {
                     break;
 
                 default:
-                // Unknown websocket message type
+                throw Error('Unknown log type')
             }
         });
     }
 
-// TODO below are used to check,will be replaced by spec methods as described in doc
     get infoLogs() {
         return this.info;
     }
