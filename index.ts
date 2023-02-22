@@ -1,6 +1,7 @@
 import WebSocket from 'ws'
-import {BidiRequest} from './types/BidiRequest'
-import {BidiResponse} from './types/BidiResponse'
+import { BidiRequest } from './types/BidiRequest'
+import { BidiResponse } from './types/BidiResponse'
+import LogInspector from './lib/LogInspector'
 
 const RESPONSE_TIMEOUT = 10 * 30
 
@@ -47,7 +48,7 @@ export class BIDI {
 
         const id = ++this._id
 
-        this._ws.send(JSON.stringify({id, ...params}))
+        this._ws.send(JSON.stringify({ id, ...params }))
 
         return new Promise<BidiResponse>((resolve, reject) => {
             const timeoutId = setTimeout(() => {
@@ -94,3 +95,5 @@ export class BIDI {
         })
     }
 }
+
+export { LogInspector }
