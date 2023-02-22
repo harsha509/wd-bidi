@@ -32,6 +32,7 @@ class LogInspector {
         this.ws = await this.bidi.socket
 
         this.ws.on('message', (event: { toString: () => WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>; }) => {
+            // @ts-ignore
             const data = JSON.parse(Buffer.from(event.toString()))
             switch (data.params.level) {
             case LOG_LEVEL.INFO:
