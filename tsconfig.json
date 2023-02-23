@@ -22,6 +22,8 @@
     /* Type Checking */
     "strict": true,                                      /* Enable all strict type-checking options. */
     "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
 
     /* Completeness */
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
