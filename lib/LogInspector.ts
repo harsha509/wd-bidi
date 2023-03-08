@@ -23,7 +23,6 @@ class LogInspector {
 
     async init() {
         this.bidi = await this._driver.getBidi()
-        // TODO this.bidi should have bidi instance need to remove connect once api is done
         await this.bidi.connect()
         await this.bidi.subscribe('log.entryAdded', this._browsingContextIds)
     }
