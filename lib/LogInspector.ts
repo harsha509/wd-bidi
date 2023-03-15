@@ -1,3 +1,4 @@
+
 const LOG_LEVEL = {
     DEBUG: 'debug',
     ERROR: 'error',
@@ -83,7 +84,7 @@ async function getInstance (driver: any, browsingContextIds: any) {
     if (instance === undefined) {
         instance = new LogInspector(driver, browsingContextIds)
         await instance.init()
-        await instance.listen()
+      await instance.listen()
         Object.freeze(instance)
     }
     return instance
