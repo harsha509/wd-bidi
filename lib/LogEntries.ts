@@ -29,7 +29,7 @@ class BaseLogEntry {
 }
 
 class GenericLogEntry extends BaseLogEntry {
-  private _type: string;
+  private readonly _type: string;
 
   constructor(level: string, text: string, timeStamp: Date, type: string, stackTrace: string[]) {
     super(level, text, timeStamp, stackTrace);
@@ -42,9 +42,9 @@ class GenericLogEntry extends BaseLogEntry {
 }
 
 class ConsoleLogEntry extends GenericLogEntry {
-  private _method: string;
-  private _realm: string;
-  private _args: any[];
+  private readonly _method: string;
+  private readonly _realm: string;
+  private readonly _args: any[];
 
   constructor(level: string, text: string, timeStamp: Date, type: string, method: string, realm: string, args: any[], stackTrace: string[]) {
     super(level, text, timeStamp, type, stackTrace);

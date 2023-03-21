@@ -1,5 +1,5 @@
 class FilterBy {
-  private level_: string;
+  private readonly level_: string;
 
   constructor(level: string) {
     this.level_ = level;
