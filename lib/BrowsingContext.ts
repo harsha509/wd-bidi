@@ -24,13 +24,13 @@ interface BrowsingContextInfoOptions {
 class BrowsingContext {
   private readonly _driver: any
   private bidi: any
-  private _id: number
+  private _id: number | undefined
 
   constructor(driver: any) {
     this._driver = driver
   }
 
-  async init(options: BrowsingContextOptions): Promise<void> {
+  async init(options: { referenceContext: BrowsingContextInfo; browsingContextId: string; type: "window" | "tab" }): Promise<void> {
     const { browsingContextId, type, referenceContext } = options
 
     if (!(await this._driver.getCapabilities()).get('webSocketUrl')) {
@@ -47,7 +47,7 @@ class BrowsingContext {
       : browsingContextId
   }
 
-  async create(type: 'window' | 'tab', referenceContext?: number): Promise<any> {
+  async create(type: "window" | "tab", referenceContext?: BrowsingContextInfo): Promise<any> {
     const params: BidiParams = {
       method: 'browsingContext.create',
       params: {
@@ -59,7 +59,7 @@ class BrowsingContext {
   }
 
   get id(): number {
-    return this._id
+    return <number>this._id
   }
 
   async navigate(url: string, readinessState?: 'none' | 'interactive' | 'complete'): Promise<NavigateResult> {
@@ -123,8 +123,8 @@ class BrowsingContext {
 }
 
 class NavigateResult {
-  private _url: string;
-  private _navigationId: number;
+  private readonly _url: string;
+  private readonly _navigationId: number;
 
   constructor(url: string, navigationId: number) {
     this._url = url;
@@ -141,10 +141,10 @@ class NavigateResult {
 }
 
 class BrowsingContextInfo {
-  private _id: number;
-  private _url: string;
-  private _children: BrowsingContextInfo[];
-  private _parentBrowsingContext: BrowsingContextInfo | undefined;
+  private readonly _id: number;
+  private readonly _url: string;
+  private readonly _children: BrowsingContextInfo[];
+  private readonly _parentBrowsingContext: BrowsingContextInfo | undefined;
 
   constructor(
     id: number,
@@ -175,23 +175,6 @@ class BrowsingContextInfo {
   }
 }
 
-class BrowsingContext {
-  // add properties and methods specific to BrowsingContext class
-
-  async init({
-               browsingContextId,
-               type,
-               referenceContext,
-             }: {
-    browsingContextId: number;
-    type: "window" | "tab";
-    referenceContext?: BrowsingContext;
-  }): Promise<void> {
-    // implementation
-  }
-}
-
-
 async function getBrowsingContextInstance(
   driver: any,
   {
@@ -201,7 +184,7 @@ async function getBrowsingContextInstance(
   }: {
     browsingContextId: string;
     type: "window" | "tab";
-    referenceContext?: BrowsingContextInfo;
+    referenceContext: BrowsingContextInfo;
   }
 ): Promise<BrowsingContext> {
   let instance = new BrowsingContext(driver);
