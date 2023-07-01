@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/harsha509/wd-bidi#readme",
   "devDependencies": {
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.3.3",
     "@types/ws": "^8.5.5",
-    "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0",
-    "eslint": "^8.43.0",
-    "typescript": "^5.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.44.0",
+    "typescript": "^5.1.6",
     "ws": "^8.13.0"
   }
 }
