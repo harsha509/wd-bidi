@@ -4,7 +4,6 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "lint": "eslint . --ext .ts",
     "build": "tsc"
   },
   "repository": {
@@ -22,12 +21,9 @@
   },
   "homepage": "https://github.com/harsha509/wd-bidi#readme",
   "devDependencies": {
-    "@types/node": "^20.12.9",
+    "@types/node": "^20.14.9",
     "@types/ws": "^8.5.10",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/parser": "^7.8.0",
-    "eslint": "^9.2.0",
-    "typescript": "^5.4.5",
-    "ws": "^8.17.0"
+    "typescript": "^5.5.2",
+    "ws": "^8.17.1"
   }
 }
