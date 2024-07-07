@@ -107,3 +107,4 @@ build
 
 #webstorm files
 .idea
+.DS_Store
