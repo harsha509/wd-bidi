@@ -2,19 +2,33 @@ import WebSocket from 'ws';
 import {clearTimeout} from "node:timers";
 import {SubscriptionType} from "./modules/session/types";
 import Session from './modules/session/commands';
+import Browser from "./modules/browser/commands";
 
 const RESPONSE_TIMEOUT = 10 * 30;
 
+/**
+ * Interface for ParamsType
+ * @interface
+ * @property {string} method - The method property.
+ * @property {SubscriptionType} params - The params property.
+ */
 export interface ParamsType {
   method: string;
   params: SubscriptionType;
 }
 
-export default class BiDi {
+/**
+ * BiDi class for handling WebSocket connections
+ * @class
+ */
+class BiDi {
   _ws: WebSocket;
   _isConnected = false;
   _id = 0;
   
+  /**
+   * @param {string} url - WebSocket URL
+   */
   constructor(url:string) {
     this._ws = new WebSocket(url);
     this._ws.on('open',()=> {
@@ -22,14 +36,26 @@ export default class BiDi {
     })
   }
   
+  /**
+   * Return WebSocket connection
+   * @return {WebSocket} The WebSocket connection.
+   */
   get getConnection(): WebSocket {
     return this._ws
   }
   
+  /**
+   * Return if it is connected
+   * @return {boolean} The connection status.
+   */
   get isConnected(): boolean {
     return this._isConnected;
   }
   
+  /**
+   * Wait for the connection to be established
+   * @return {Promise<void>} Resolves when the connection is established.
+   */
   async waitForConnection(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if(this._ws.readyState === this._ws.OPEN) {
@@ -53,7 +79,11 @@ export default class BiDi {
     });
   }
   
-  
+  /**
+   * Send a command over the WebSocket connection
+   * @param params - Parameters to send with the command.
+   * @return {Promise} Resolves with the response payload.
+   */
   async sendCommand<T>(params: T) {
     if(!this._isConnected) {
       await this.waitForConnection();
@@ -84,6 +114,10 @@ export default class BiDi {
     })
   }
   
+  /**
+   * Close the WebSocket connection.
+   * @return {Promise<void>} Resolves when the connection has been succesfully closed.
+   */
   closeConnection() {
     const close = (callback: () => void) => {
       if(this._ws.readyState === 3) {
@@ -103,7 +137,8 @@ export default class BiDi {
   }
 }
 
-
 export {
+  BiDi,
+  Browser,
   Session,
 };

@@ -1,7 +1,7 @@
 import { BrowsingContext } from '../browsingContext/types'
 
 export type SubscriptionType  = string | string[];
-type Empty = NonNullable<unknown>;
+export type Empty = NonNullable<unknown>;
 
 export interface SubscriptionRequest {
   events: string[];
@@ -10,10 +10,7 @@ export interface SubscriptionRequest {
 
 export interface Params {
   method: string;
-  params: {
-    events: SubscriptionType
-    contexts?: BrowsingContext | BrowsingContext[];
-  };
+  params: SubscriptionRequest
 }
 
 export interface Status {
@@ -112,4 +109,9 @@ export type SessionNewResult = {
     unhandledPromptBehavior?: sessionUserPromptHandler,
     webSocketUrl?: string,
   }
+}
+
+export interface SessionEndParams {
+  method: 'session.end';
+  params: Empty
 }
