@@ -3,6 +3,7 @@ import {clearTimeout} from "node:timers";
 import {SubscriptionType} from "./modules/session/types";
 import Session from './modules/session/commands';
 import Browser from "./modules/browser/commands";
+import BrowsingContext from "./modules/browsingContext/commands";
 
 const RESPONSE_TIMEOUT = 10 * 30;
 
@@ -116,7 +117,7 @@ class BiDi {
   
   /**
    * Close the WebSocket connection.
-   * @return {Promise<void>} Resolves when the connection has been succesfully closed.
+   * @return {Promise<void>} Resolves when the connection has been successfully closed.
    */
   closeConnection() {
     const close = (callback: () => void) => {
@@ -140,5 +141,6 @@ class BiDi {
 export {
   BiDi,
   Browser,
+  BrowsingContext,
   Session,
 };
