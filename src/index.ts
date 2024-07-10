@@ -1,22 +1,10 @@
 import WebSocket from 'ws';
 import {clearTimeout} from "node:timers";
-import {SubscriptionType} from "./modules/session/types";
 import Session from './modules/session/commands';
 import Browser from "./modules/browser/commands";
 import BrowsingContext from "./modules/browsingContext/commands";
 
 const RESPONSE_TIMEOUT = 10 * 30;
-
-/**
- * Interface for ParamsType
- * @interface
- * @property {string} method - The method property.
- * @property {SubscriptionType} params - The params property.
- */
-export interface ParamsType {
-  method: string;
-  params: SubscriptionType;
-}
 
 /**
  * BiDi class for handling WebSocket connections
