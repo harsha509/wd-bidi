@@ -4,7 +4,7 @@ export type SubscriptionType  = string | string[];
 export type Empty = NonNullable<unknown>;
 
 export interface SubscriptionRequest {
-  events: string[];
+  events: string | string[];
   contexts?: BrowsingContext| BrowsingContext[];
 }
 
@@ -99,7 +99,7 @@ type sessionUserPromptHandler = {
 }
 
 
-type sessionUserPromptHandlerType = "accept" | "dismiss" | "ignore";
+export type sessionUserPromptHandlerType = "accept" | "dismiss" | "ignore";
 
 export type SessionNewResult = {
   sessionId: string,

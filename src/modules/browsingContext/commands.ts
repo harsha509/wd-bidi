@@ -1,66 +1,68 @@
 import {BiDi} from "../../index";
-import {
-  BrowsingContextActivate,
-  BrowsingContextActivateParameters,
-  BrowsingContextCaptureScreenshot,
-  BrowsingContextCaptureScreenshotParameters,
-  BrowsingContextClose,
-  BrowsingContextCloseParameters,
-  BrowsingContextCreate,
-  BrowsingContextCreateParameters,
-  BrowsingContextCreateResult,
-  BrowsingContextGetTree,
-  BrowsingContextGetTreeParameters,
-  BrowsingContextGetTreeResultType,
-  BrowsingContextHandleUserPrompt,
-  BrowsingContextHandleUserPromptParameters,
-  BrowsingContextLocateNodes,
-  BrowsingContextLocateNodesParameters,
-  BrowsingContextLocateNodesResultType,
-  BrowsingContextNavigate,
-  BrowsingContextNavigateParameters,
-  BrowsingContextNavigateResultType, BrowsingContextPrint, BrowsingContextPrintParams, BrowsingContextPrintResult,
-  BrowsingContextReload,
-  BrowsingContextReloadParameters,
-  BrowsingContextReloadResultType,
-  BrowsingContextSetViewport,
-  BrowsingContextSetViewportParameters, BrowsingContextTraverseHistory,
-  BrowsingContextTraverseHistoryParameters,
-  CaptureScreenshotResult,
-} from "./types";
+import * as EventType from "./types";
+import BrowsingContextEvents from "./events";
 
+/**
+ * The BrowsingContext class provides methods for managing navigation contexts in a user agent.
+ */
 export default class BrowsingContext {
   _ws: BiDi;
+  _events: BrowsingContextEvents;
   
+  /**
+   * Constructs a new instance of the BrowsingContext.
+   * @param {BiDi} BidiConnection - The BiDi connection object to use.
+   */
   constructor(BidiConnection: BiDi){
     this._ws = BidiConnection;
+    this._events = new BrowsingContextEvents(BidiConnection)
   }
   
-  async activate(context: BrowsingContextActivateParameters): Promise<void> {
-    const params: BrowsingContextActivate = {
+  /**
+   * Gets BrowsingContext events.
+   * @returns {BrowsingContextEvents} The BrowsingContext events.
+   */
+  get events(): BrowsingContextEvents {
+    return this._events;
+  }
+  
+  /**
+   * Makes the specified context the active context.
+   * @param {EventType.BrowsingContextActivateParameters} context - The context to make active.
+   */
+  async activate(context: EventType.BrowsingContextActivateParameters): Promise<void> {
+    const params: EventType.BrowsingContextActivate = {
       method:'browsingContext.activate',
       params: context
     }
     await this._ws.sendCommand(params);
   }
   
-  async captureScreenshot(contextParameters: BrowsingContextCaptureScreenshotParameters):Promise<CaptureScreenshotResult> {
-    const params: BrowsingContextCaptureScreenshot = {
+  /**
+   * Captures a screenshot of the specified browsing context.
+   * @param {EventType.BrowsingContextCaptureScreenshotParameters} contextParameters - The context to capture a screenshot from.
+   * @returns {EventType.CaptureScreenshotResult} The screenshot result.
+   */
+  async captureScreenshot(contextParameters: EventType.BrowsingContextCaptureScreenshotParameters):Promise<EventType.CaptureScreenshotResult> {
+    const params: EventType.BrowsingContextCaptureScreenshot = {
       method:'browsingContext.captureScreenshot',
       params: contextParameters
     }
     
-    return new Promise<CaptureScreenshotResult>((resolve, reject) => {
+    return new Promise<EventType.CaptureScreenshotResult>((resolve, reject) => {
       this._ws.sendCommand(params)
-        .then(response => resolve (response as CaptureScreenshotResult))
+        .then(response => resolve (response as EventType.CaptureScreenshotResult))
         .catch(error => reject(`Unable to capture screenshot: ${error}`))
     })
   }
   
-  // command to close top level browsing context
-  async close(closeParams: BrowsingContextCloseParameters): Promise<void> {
+  /**
+   * Closes the specified top level browsing context.
+   * @param {EventType.BrowsingContextCloseParameters} closeParams - The context to close.
+   */
+  async close(closeParams: EventType.BrowsingContextCloseParameters): Promise<void> {
     closeParams.promptUnload = closeParams.promptUnload || false;
-    const params: BrowsingContextClose = {
+    const params: EventType.BrowsingContextClose = {
       method: 'browsingContext.close',
       params: closeParams
     }
@@ -68,108 +70,148 @@ export default class BrowsingContext {
     await this._ws.sendCommand(params);
   }
   
-  async create(createContext: BrowsingContextCreateParameters): Promise<BrowsingContextCreateResult> {
-    const params: BrowsingContextCreate = {
+  /**
+   * Creates a new top-level browsing context.
+   * @param {EventType.BrowsingContextCreateParameters} createContext - The parameters to create a context with.
+   * @returns {EventType.BrowsingContextCreateResult} The creation result.
+   */
+  async create(createContext: EventType.BrowsingContextCreateParameters): Promise<EventType.BrowsingContextCreateResult> {
+    const params: EventType.BrowsingContextCreate = {
       method:'browsingContext.create',
       params: createContext
     }
     
-    return new Promise<BrowsingContextCreateResult>((resolve, reject)=> {
+    return new Promise<EventType.BrowsingContextCreateResult>((resolve, reject)=> {
       this._ws.sendCommand(params)
-        .then(response => resolve(response as BrowsingContextCreateResult))
+        .then(response => resolve(response as EventType.BrowsingContextCreateResult))
         .catch(error => reject(`Unable to create browsingContext: ${error}`))
     })
   }
   
-  async getTree(BrowsingContextTreeParams: BrowsingContextGetTreeParameters): Promise<BrowsingContextGetTreeResultType> {
-    const params: BrowsingContextGetTree = {
+  /**
+   * Retrieves the tree of browsing contexts.
+   * @param {EventType.BrowsingContextGetTreeParameters} BrowsingContextTreeParams - The parameters to get the context tree with.
+   * @returns {EventType.BrowsingContextGetTreeResultType} The context tree.
+   */
+  async getTree(BrowsingContextTreeParams: EventType.BrowsingContextGetTreeParameters): Promise<EventType.BrowsingContextGetTreeResultType> {
+    const params: EventType.BrowsingContextGetTree = {
       method:'browsingContext.getTree',
       params: BrowsingContextTreeParams
     }
     
-    return new Promise<BrowsingContextGetTreeResultType>((resolve, reject) => {
+    return new Promise<EventType.BrowsingContextGetTreeResultType>((resolve, reject) => {
       this._ws.sendCommand(params)
-        .then(response => resolve(response as BrowsingContextGetTreeResultType))
+        .then(response => resolve(response as EventType.BrowsingContextGetTreeResultType))
         .catch(error => reject(`Unable to get browsingContext tree : ${error}` ))
     })
   }
   
-  async handleUserPrompt(promptParameters: BrowsingContextHandleUserPromptParameters): Promise<void> {
-    const params: BrowsingContextHandleUserPrompt = {
+  /**
+   * Handles a user prompt.
+   * @param {EventType.BrowsingContextHandleUserPromptParameters} promptParameters - The parameters to handle the prompt with.
+   */
+  async handleUserPrompt(promptParameters: EventType.BrowsingContextHandleUserPromptParameters): Promise<void> {
+    const params: EventType.BrowsingContextHandleUserPrompt = {
       method:'browsingContext.handleUserPrompt',
       params: promptParameters
     }
     await this._ws.sendCommand(params);
   }
   
-  async locateNodes(locateNodeParams: BrowsingContextLocateNodesParameters):Promise<BrowsingContextLocateNodesResultType> {
-  const params: BrowsingContextLocateNodes = {
-    method:'browsingContext.locateNodes',
-    params: locateNodeParams
+  /**
+   * Locates nodes in a browsing context using a CSS or XPath selector.
+   * @param {EventType.BrowsingContextLocateNodesParameters} locateNodeParams - The parameters to locate nodes with.
+   * @returns {EventType.BrowsingContextLocateNodesResultType} The located nodes.
+   */
+  async locateNodes(locateNodeParams: EventType.BrowsingContextLocateNodesParameters):Promise<EventType.BrowsingContextLocateNodesResultType> {
+    const params: EventType.BrowsingContextLocateNodes = {
+      method:'browsingContext.locateNodes',
+      params: locateNodeParams
+    }
+    
+    return new Promise<EventType.BrowsingContextLocateNodesResultType>((resolve, reject)=> {
+      this._ws.sendCommand(params)
+        .then(response => resolve(response as EventType.BrowsingContextLocateNodesResultType))
+        .catch(error => reject(`Unable to locate nodes: ${error}`))
+    });
   }
   
-  return new Promise<BrowsingContextLocateNodesResultType>((resolve, reject)=> {
-    this._ws.sendCommand(params)
-      .then(response => resolve(response as BrowsingContextLocateNodesResultType))
-      .catch(error => reject(`Unable to locate nodes: ${error}`))
-  });
-  }
-  
-  async navigate(navigateParams: BrowsingContextNavigateParameters): Promise<BrowsingContextNavigateResultType> {
-    const params: BrowsingContextNavigate = {
+  /**
+   * Navigates a browsing context to a new location.
+   * @param {EventType.BrowsingContextNavigateParameters} navigateParams - The parameters to navigate with.
+   * @returns {EventType.BrowsingContextNavigateResultType} The navigation result.
+   */
+  async navigate(navigateParams: EventType.BrowsingContextNavigateParameters): Promise<EventType.BrowsingContextNavigateResultType> {
+    const params: EventType.BrowsingContextNavigate = {
       method:'browsingContext.navigate',
       params: navigateParams
     }
     
-    return new Promise<BrowsingContextNavigateResultType>((resolve, reject) => {
+    return new Promise<EventType.BrowsingContextNavigateResultType>((resolve, reject) => {
       this._ws.sendCommand(params)
-        .then(response => resolve(response as BrowsingContextNavigateResultType))
+        .then(response => resolve(response as EventType.BrowsingContextNavigateResultType))
         .catch(error => reject(`failed command browsingContext.Navigate: ${error}`))
     })
   }
   
-  async print(printParameters: BrowsingContextPrintParams): Promise<BrowsingContextPrintResult> {
+  /**
+   * Prints the contents of a browsing context to a PDF.
+   * @param {EventType.BrowsingContextPrintParams} printParameters - The parameters to print with.
+   * @returns {EventType.BrowsingContextPrintResult} The print result.
+   */
+  async print(printParameters: EventType.BrowsingContextPrintParams): Promise<EventType.BrowsingContextPrintResult> {
     
-    const params: BrowsingContextPrint = {
+    const params: EventType.BrowsingContextPrint = {
       method:'browsingContext.print',
       params: printParameters
     }
     
-    return new Promise<BrowsingContextPrintResult> ((resolve, reject) => {
+    return new Promise<EventType.BrowsingContextPrintResult> ((resolve, reject) => {
       this._ws.sendCommand(params)
-        .then(response => resolve(response as BrowsingContextPrintResult))
+        .then(response => resolve(response as EventType.BrowsingContextPrintResult))
         .catch(error => reject(`Unable to perform print page: ${error}`))
     })
   }
   
-  async reload(reloadParams: BrowsingContextReloadParameters): Promise<BrowsingContextReloadResultType> {
-    const params: BrowsingContextReload = {
+  /**
+   * Reloads the specified browsing context.
+   * @param {EventType.BrowsingContextReloadParameters} reloadParams - The context to reload.
+   * @returns {EventType.BrowsingContextReloadResultType} The reload result.
+   */
+  async reload(reloadParams: EventType.BrowsingContextReloadParameters): Promise<EventType.BrowsingContextReloadResultType> {
+    const params: EventType.BrowsingContextReload = {
       method:'browsingContext.reload',
       params: reloadParams
     }
     
-    return new Promise<BrowsingContextReloadResultType>((resolve, reject) => {
+    return new Promise<EventType.BrowsingContextReloadResultType>((resolve, reject) => {
       this._ws.sendCommand(params)
-        .then(response => resolve(response as BrowsingContextReloadResultType))
+        .then(response => resolve(response as EventType.BrowsingContextReloadResultType))
         .catch(error => reject(`Failed to reload ${error}`))
     })
   }
   
-  
-  async setViewPort(viewportParameters: BrowsingContextSetViewportParameters): Promise<void> {
-    const params: BrowsingContextSetViewport = {
+  /**
+   * Sets the viewport size for the specific browsing context.
+   * @param {EventType.BrowsingContextSetViewportParameters} viewportParameters - The parameters to set the viewport with.
+   */
+  async setViewPort(viewportParameters: EventType.BrowsingContextSetViewportParameters): Promise<void> {
+    const params: EventType.BrowsingContextSetViewport = {
       method:'browsingContext.setViewport',
       params: viewportParameters
     }
     await this._ws.sendCommand(params);
   }
   
-  async traverseHistory(traverseHistoryParameters: BrowsingContextTraverseHistoryParameters) {
-    const params: BrowsingContextTraverseHistory = {
+  /**
+   * Traverses the history of a browsing context.
+   * @param {EventType.BrowsingContextTraverseHistoryParameters} traverseHistoryParameters - The parameters to traverse history with.
+   */
+  async traverseHistory(traverseHistoryParameters: EventType.BrowsingContextTraverseHistoryParameters):Promise<void> {
+    const params: EventType.BrowsingContextTraverseHistory = {
       method:'browsingContext.traverseHistory',
       params: traverseHistoryParameters
     }
     await this._ws.sendCommand(params);
   }
-  
 }
