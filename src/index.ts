@@ -4,6 +4,7 @@ import {SubscriptionType} from "./modules/session/types";
 import Session from './modules/session/commands';
 import Browser from "./modules/browser/commands";
 import BrowsingContext from "./modules/browsingContext/commands";
+import BrowsingContextEvents from "./modules/browsingContext/events";
 
 const RESPONSE_TIMEOUT = 10 * 30;
 
@@ -142,5 +143,6 @@ export {
   BiDi,
   Browser,
   BrowsingContext,
+  BrowsingContextEvents,
   Session,
 };

@@ -8,9 +8,14 @@ export interface SubscriptionRequest {
   contexts?: BrowsingContext| BrowsingContext[];
 }
 
-export interface Params {
+export interface Event {
   method: string;
   params: SubscriptionRequest
+}
+
+export interface Command<T> {
+  method: string;
+  params: T
 }
 
 export interface Status {

@@ -172,6 +172,4 @@ export default class BrowsingContext {
     await this._ws.sendCommand(params);
   }
   
-
-  
 }

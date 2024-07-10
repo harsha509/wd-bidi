@@ -1,13 +1,13 @@
 import { BiDi } from '../../index';
 
 import {
-  Params,
+  Event,
   sessionCapabilitiesRequest,
   SessionEndParams,
   sessionNew,
   SessionNewResult,
   SessionStatusParams,
-  SessionStatusResult,
+  SessionStatusResult, SubscriptionRequest,
   SubscriptionType
 } from './types';
 
@@ -43,23 +43,21 @@ export default class Session {
   
   /**
    * Manages subscriptions for events. Used for both subscribing and unsubscribing.
-   * @param {string} method - The method name to be executed ('session.subscribe' or 'session.unsubscribe').
-   * @param {SubscriptionType} events - The events to be subscribed/unsubscribed.
-   * @param {SubscriptionType} [context] - The context for which events are to be subscribed/unsubscribed.
    * @private
    * @returns {Promise} Promise representing sending command for subscription/unsubscription.
+   * @param parameters
    */
-  private async manageSubscription(method: string, events: SubscriptionType, context?: SubscriptionType): Promise<void> {
-    this._events = Array.isArray(events) ? events : [events];
-    this._contexts = Array.isArray(context) ? context : (context ? [context] : []);
+  private async manageSubscription(parameters: Event): Promise<void> {
+    this._events = Array.isArray(parameters.params.events) ? parameters.params.events : [parameters.params.events];
+    this._contexts = Array.isArray(parameters.params.contexts) ? parameters.params.contexts : (parameters.params.contexts ? [parameters.params.contexts] : []);
     
     this.validateStringTypes(this._events, 'events');
     if (this._contexts.length > 0) {
       this.validateStringTypes(this._contexts, 'contexts');
     }
     
-    const params: Params = {
-      method,
+    const params: Event = {
+      method: parameters.method,
       params: {
         events: this._events
       }
@@ -74,22 +72,29 @@ export default class Session {
   
   /**
    * Subscribes to specified events.
-   * @param {SubscriptionType} events - The events to be subscribed.
-   * @param {SubscriptionType} [context] - The context for which events are to be subscribed.
    * @returns {Promise} Promise representing sending command for subscription.
+   * @param subscriptionRequest
    */
-  async subscribe(events: SubscriptionType, context?: SubscriptionType) {
-    return this.manageSubscription('session.subscribe', events, context);
+  async subscribe(subscriptionRequest: SubscriptionRequest) {
+    const sessionSubscribe = {
+      method: 'session.subscribe',
+      params: subscriptionRequest
+    }
+    return this.manageSubscription(sessionSubscribe);
   }
   
   /**
    * Unsubscribes from specified events.
-   * @param {SubscriptionType} events - The events to be unsubscribed.
-   * @param {SubscriptionType} [context] - The context for which events are to be unsubscribed.
    * @returns {Promise} Promise representing sending command for unsubscription.
+   * @param unsubscriptionType
    */
-  async unsubscribe(events: SubscriptionType, context?: SubscriptionType) {
-    return this.manageSubscription('session.unsubscribe', events, context);
+  async unsubscribe(unsubscriptionType: SubscriptionRequest) {
+    const sessionUnSubscribe = {
+      method: 'session.unsubscribe',
+      params: unsubscriptionType
+    }
+
+    return this.manageSubscription(sessionUnSubscribe);
   }
   
   /**
@@ -117,7 +122,7 @@ export default class Session {
   async newSession(capabilities: sessionCapabilitiesRequest): Promise<SessionNewResult>{
     this._capabilities = capabilities;
     
-    const params: sessionNew= {
+    const params: sessionNew = {
       method: 'session.new',
       params:{
         capabilities: this._capabilities
