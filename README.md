@@ -1,7 +1,12 @@
 # wd-bidi
 
 package for implementing [webdriver BIDI](https://w3c.github.io/webdriver-bidi/). 
-The alpha-3 has basic class to create, subscribe and listen to events. Currently, the development of this package is ongoing and the next release will include a simple API for subscribing to and listening to multiple events. This will make it easier for developers to interact with the WebDriver BIDI protocol and handle multiple events within their applications.
+The alpha-4 has basic class to create, subscribe and listen to events. Currently, the development of this package is ongoing and the next release will 
+include a simple API for subscribing to and listening to multiple events. 
+This will make it easier for developers to interact with the WebDriver BIDI 
+protocol and handle multiple events within their applications.
+
+### [API docs](./docs/index.html)
 
 # Usage
 ```shell
@@ -51,6 +56,5 @@ describe('Sample Bidi tests', ()=> {
 })
 ```
 
-___NOTE___: THIS IS NOT AN OFFICIAL PACKAGE from Webdriver BIDI community!
 
 
