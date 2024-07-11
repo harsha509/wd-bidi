@@ -61,7 +61,7 @@ const Chrome= require('selenium-webdriver/chrome');
 const opts = new Chrome.Options();
 const { Session, BiDi, Log} = require('wd-bidi');
 
-describe('Sample Bidi tests', ()=> {
+describe('Session: Log entry added', ()=> {
   let driver;
 
   before(async ()=> {
