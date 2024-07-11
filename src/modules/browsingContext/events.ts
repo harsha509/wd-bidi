@@ -64,7 +64,7 @@ export default class BrowsingContextEvents {
    * Handles BrowsingContextInfo event when a context is created.
    * @return {Promise<void>}
    */
-  async contextCreated() { return this.handleEvent<BrowsingContextInfo>('contextCreated'); }
+  async contextCreated(): Promise<void> { return this.handleEvent<BrowsingContextInfo>('contextCreated'); }
   
   /**
    * Handles BrowsingContextInfo event when a context is destroyed.
