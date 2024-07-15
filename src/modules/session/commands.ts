@@ -75,7 +75,7 @@ export default class Session {
    * @returns {Promise} Promise representing sending command for subscription.
    * @param subscriptionRequest
    */
-  async subscribe(subscriptionRequest: SubscriptionRequest) {
+  async subscribe(subscriptionRequest: SubscriptionRequest): Promise<void> {
     const sessionSubscribe = {
       method: 'session.subscribe',
       params: subscriptionRequest
@@ -145,7 +145,7 @@ export default class Session {
    * @returns {Promise<void>} Promise that resolves if the session ends successfully,
    * rejects if the WebSocket fails to send the command.
    */
-  async endSession(){
+  async endSession(): Promise<void> {
     const params: SessionEndParams = {
       method: 'session.end',
       params: {}
