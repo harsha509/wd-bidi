@@ -113,7 +113,7 @@ interface InputPointerMoveAction extends CommonInputProperties {
 }
 
 interface InputWheelScrollAction {
-  type: string;
+  type: 'scroll';
   x: number;
   y: number;
   deltaX: number;
