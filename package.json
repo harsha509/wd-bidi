@@ -1,12 +1,12 @@
 {
   "name": "wd-bidi",
   "version": "0.0.4-alpha-8",
-  "description": "",
+  "description": "WebDriver BiDi API for automation testing",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
   "types": "./build/types/index.d.ts",
   "scripts": {
-    "clean": "rimraf ./build",
+    "clean": "rimraf ./build && rimraf ./docs",
     "build:es": "tsc",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build": "npm run build:es && npm run build:cjs",
@@ -17,7 +17,18 @@
     "type": "git",
     "url": "git+https://github.com/harsha509/wd-bidi.git"
   },
-  "keywords": [],
+  "keywords": [
+    "WebDriver",
+    "Bidi",
+    "wd-bidi",
+    "Webdriver BiDi",
+    "WebDriver-BiDi",
+    "BiDi-API-for-WebDriver",
+    "WebDriver-Bidirectional",
+    "BiDi-Protocol-WebDriver",
+    "BiDi-WebDriver",
+    "BiDi-Javascript-WebDriver-API"
+  ],
   "author": {
     "name": "Sri Harsha",
     "email": "sri_harsha509@hotmail.com"
@@ -28,17 +39,17 @@
   },
   "homepage": "https://github.com/harsha509/wd-bidi#readme",
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
-    "@types/node": "^20.12.9",
-    "@types/ws": "^8.5.10",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
-    "@typescript-eslint/parser": "^7.8.0",
-    "eslint": "^8.57.0",
+    "@eslint/js": "^9.7.0",
+    "@types/node": "^20.14.10",
+    "@types/ws": "^8.5.11",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.57.0 ",
     "globals": "^15.8.0",
-    "rimraf": "^5.0.8",
-    "typedoc": "^0.26.3",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "^7.15.0",
-    "ws": "^8.17.0"
+    "rimraf": "^6.0.1",
+    "typedoc": "^0.26.4",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.0",
+    "ws": "^8.18.0"
   }
 }
