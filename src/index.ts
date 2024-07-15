@@ -4,6 +4,7 @@ import Session from './modules/session/commands';
 import Browser from "./modules/browser/commands";
 import BrowsingContext from "./modules/browsingContext/commands";
 import Log from './modules/log/commands';
+import Input from './modules/input/commands'
 
 const RESPONSE_TIMEOUT = 10 * 30;
 
@@ -131,6 +132,7 @@ export {
   BiDi,
   Browser,
   BrowsingContext,
+  Input,
   Log,
   Session,
 };

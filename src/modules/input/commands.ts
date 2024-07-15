@@ -36,6 +36,7 @@ export default class Input {
       method:'input.performActions',
       params: actionParameters
     }
+    console.log(params)
     await this._ws.sendCommand(params);
   }
   

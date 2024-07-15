@@ -1,6 +1,6 @@
 {
   "name": "wd-bidi",
-  "version": "0.0.4-alpha-9",
+  "version": "0.0.4-alpha-10",
   "description": "WebDriver BiDi API for automation testing",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",

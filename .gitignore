@@ -104,3 +104,4 @@ dist
 #webstorm files
 .idea
 .DS_Store
+build
