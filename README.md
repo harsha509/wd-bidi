@@ -56,12 +56,12 @@ describe('BrowserContext: Create and listen to event', ()=> {
 ## Session: Subscribe to an event
 ```javascript
 require('chromedriver');
-const {Builder} = require('selenium-webdriver');
+const {Builder, By} = require('selenium-webdriver');
 const Chrome= require('selenium-webdriver/chrome');
 const opts = new Chrome.Options();
 const { Session, BiDi, Log} = require('wd-bidi');
 
-describe('Session: Log entry added', ()=> {
+describe('Log Events', ()=> {
   let driver;
 
   before(async ()=> {
@@ -80,9 +80,27 @@ describe('Session: Log entry added', ()=> {
     // Subscribe to log events
     await log.events.entryAdded();
 
-    await driver.executeScript('console.log("Hello Bidi")', [])
-    // listen to logEvent message and print
+    await driver.get('https://www.selenium.dev/selenium/web/bidi/logEntryAdded.html');
+
+    //generic log
+    await driver.findElement(By.id('consoleLog')).click();
+    await driver.sleep(1000);
     console.log(log.events.eventSubscriptionData)
+
+    // console error
+    await driver.findElement(By.id('consoleError')).click();
+    await driver.sleep(1000);
+    console.log(log.events.eventSubscriptionData)
+
+    //js exception
+    await driver.findElement(By.id('jsException')).click();
+    await driver.sleep(1000);
+    console.log(log.events.eventSubscriptionData)
+
+    // log with stacktrace
+    await driver.findElement(By.id('logWithStacktrace')).click();
+    await driver.sleep(1000);
+    console.log(log.events.eventSubscriptionData);
   })
 
   after(async ()=> await driver.quit())
