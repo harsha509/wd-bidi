@@ -11,7 +11,7 @@ import {
 /**
  * This class provides methods that allow the manipulation of cookies
  */
-export class Storage {
+export default class Storage {
   private _ws: BiDi
   
   /**

@@ -5,6 +5,7 @@ import Browser from "./modules/browser/commands";
 import BrowsingContext from "./modules/browsingContext/commands";
 import Log from './modules/log/commands';
 import Input from './modules/input/commands'
+import Storage from './modules/storage/commands'
 
 const RESPONSE_TIMEOUT = 60 * 1000;
 
@@ -135,4 +136,5 @@ export {
   Input,
   Log,
   Session,
+  Storage
 };
