@@ -240,3 +240,15 @@ type SetLocalValue = {
   type: "set",
   value: ListLocalValue,
 }
+
+export interface ScriptStackTrace {
+  callFrames: ScriptStackFrame[]
+}
+
+
+export interface ScriptStackFrame {
+  columnNumber: number,
+  functionName: string,
+  lineNumber: number,
+  url: string
+}

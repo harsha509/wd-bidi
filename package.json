@@ -1,6 +1,6 @@
 {
   "name": "wd-bidi",
-  "version": "0.0.4-alpha-13",
+  "version": "0.0.4-alpha-14",
   "description": "WebDriver BiDi API for automation testing",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
@@ -39,17 +39,17 @@
   },
   "homepage": "https://github.com/harsha509/wd-bidi#readme",
   "devDependencies": {
-    "@eslint/js": "^9.7.0",
-    "@types/node": "^20.14.10",
+    "@eslint/js": "^9.8.0",
+    "@types/node": "^20.14.12",
     "@types/ws": "^8.5.11",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/parser": "^7.17.0",
     "eslint": "^8.57.0 ",
     "globals": "^15.8.0",
     "rimraf": "^6.0.1",
-    "typedoc": "^0.26.4",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.0",
+    "typedoc": "^0.26.5",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.17.0",
     "ws": "^8.18.0"
   }
 }
