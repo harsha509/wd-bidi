@@ -11,11 +11,11 @@ export default class BrowsingContext {
   
   /**
    * Constructs a new instance of the BrowsingContext.
-   * @param {BiDi} BidiConnection - The BiDi connection object to use.
+   * @param {BiDi} BiDiConnection - The BiDi connection object to use.
    */
-  constructor(BidiConnection: BiDi){
-    this._ws = BidiConnection;
-    this._events = new BrowsingContextEvents(BidiConnection)
+  constructor(BiDiConnection: BiDi){
+    this._ws = BiDiConnection;
+    this._events = new BrowsingContextEvents(BiDiConnection)
   }
   
   /**

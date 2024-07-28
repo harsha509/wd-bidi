@@ -1,5 +1,6 @@
 import { BiDi } from "../../index";
 import * as EventType from './types'
+import {NetworkEvents} from "./events";
 
 /**
  * Network class provides methods to manage network requests and responses
@@ -7,6 +8,7 @@ import * as EventType from './types'
  */
 export default class Network {
     _ws: BiDi;
+    _events: NetworkEvents
 
     /**
      * Constructs a new Network instance.
@@ -14,6 +16,15 @@ export default class Network {
      */
     constructor(BidiConnection: BiDi) {
         this._ws = BidiConnection;
+        this._events = new NetworkEvents(BidiConnection)
+    }
+
+    /**
+     * Gets BrowsingContext events.
+     * @returns {NetworkEvents} The BrowsingContext events.
+     */
+    get events(): NetworkEvents {
+        return this._events;
     }
 
     /**
