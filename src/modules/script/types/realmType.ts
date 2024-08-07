@@ -1,0 +1,8 @@
+export type RealmType = "window"
+    | "dedicated-worker"
+    | "shared-worker"
+    | "service-worker"
+    | "worker"
+    | "paint-worklet"
+    | "audio-worklet"
+    | "worklet"

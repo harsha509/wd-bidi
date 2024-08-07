@@ -1,6 +1,6 @@
 
 import {BrowsingContext, Navigation} from "../browsingContext/types";
-import {ScriptStackTrace} from "../script/types";
+import {StackTrace} from "../script/types";
 
 export type NetworkSameSite = 'strict' | 'lax' | 'none'
 
@@ -108,7 +108,7 @@ export interface NetworkInitiator {
   type: 'parser' | 'script' | 'preflight' | 'other',
   columnNumber?: number,
   lineNumber?: number,
-  stackTrace?: ScriptStackTrace,
+  stackTrace?: StackTrace,
   request?: NetworkRequest
 }
 

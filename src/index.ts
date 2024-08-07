@@ -7,6 +7,7 @@ import Log from './modules/log/commands';
 import Input from './modules/input/commands'
 import Storage from './modules/storage/commands'
 import Network from "./modules/network/commands";
+import Script from "./modules/script/commands";
 
 const RESPONSE_TIMEOUT = 60 * 1000;
 
@@ -137,6 +138,7 @@ export {
   Input,
   Log,
   Network,
+  Script,
   Session,
   Storage
 };

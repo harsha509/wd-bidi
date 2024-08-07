@@ -1,5 +1,6 @@
-import {SharedReference} from "../script/types";
+
 import {BrowsingContext} from "../browsingContext/types";
+import {SharedReference} from "../script/types";
 
 type InputOrigin = 'viewport' | 'pointer' | InputElementOrigin;
 type PointerType = "mouse" | "pen" | "touch";
