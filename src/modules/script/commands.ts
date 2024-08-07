@@ -39,7 +39,7 @@ export default class Script {
 
   /**
    * Gets Script events.
-   * @returns {NetworkEvents} The BrowsingContext events.
+   * @returns {ScriptEvents} The Script events.
    */
   get events(): ScriptEvents {
     return this._events;

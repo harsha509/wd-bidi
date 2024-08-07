@@ -69,7 +69,7 @@ export class ScriptEvents {
     this._connection.on('message', (data: string) => {
       const messageData = JSON.parse(data.toString()) as ScriptEvent<T>;
       if ('method' in messageData && 'params' in messageData) {
-        if (messageData.method === 'network.' + eventName) {
+        if (messageData.method === 'script.' + eventName) {
           this.eventSubscriptions.set(eventName, messageData as ScriptEventSubscriptionType);
         }
       }
