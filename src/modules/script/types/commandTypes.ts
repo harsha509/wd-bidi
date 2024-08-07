@@ -47,7 +47,7 @@ export interface CallFunction {
 }
 
 export interface CallFunctionParameters {
-  function: string,
+  functionDeclaration: string,
   awaitPromise: boolean,
   target: Target,
   arguments?: LocalValue[],
@@ -56,7 +56,6 @@ export interface CallFunctionParameters {
   this?: LocalValue,
   userActivation?: boolean;
 }
-
 
 // Types: Evaluate
 
