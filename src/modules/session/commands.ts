@@ -1,15 +1,12 @@
 import { BiDi } from '../../index';
-
 import {
-  Event,
-  sessionCapabilitiesRequest,
-  SessionEndParams,
-  sessionNew,
-  SessionNewResult,
-  SessionStatusParams,
-  SessionStatusResult, SubscriptionRequest,
+  CapabilitiesRequest,
+  Event, SessionEnd, SessionNew, SessionNewResult,
+  SessionStatus,
+  SessionStatusResult,
+  SubscriptionRequest,
   SubscriptionType
-} from './types';
+} from "./types";
 
 
 /**
@@ -19,7 +16,7 @@ export default class Session {
   _ws: BiDi;
   _events: SubscriptionType | undefined ;
   _contexts: SubscriptionType | undefined ;
-  _capabilities: sessionCapabilitiesRequest | undefined;
+  _capabilities: CapabilitiesRequest | undefined;
   
   /**
    * Create a session.
@@ -102,7 +99,7 @@ export default class Session {
    * @return {Promise<SessionStatusResult>} Promise object represents the session status.
    */
   get status(): Promise<SessionStatusResult> {
-    const params: SessionStatusParams = {
+    const params: SessionStatus = {
       method: 'session.status',
       params: {}
     }
@@ -115,14 +112,14 @@ export default class Session {
   
   /**
    * Create a new session
-   * @param {sessionCapabilitiesRequest} capabilities - The capabilities that the new session should have.
+   * @param {CapabilitiesRequest} capabilities - The capabilities that the new session should have.
    * @return {Promise<SessionNewResult>} Promise object represents the newly created session.
    * @throws {Error} When unable to create a session.
    */
-  async newSession(capabilities: sessionCapabilitiesRequest): Promise<SessionNewResult>{
+  async new(capabilities: CapabilitiesRequest): Promise<SessionNewResult>{
     this._capabilities = capabilities;
     
-    const params: sessionNew = {
+    const params: SessionNew = {
       method: 'session.new',
       params:{
         capabilities: this._capabilities
@@ -146,7 +143,7 @@ export default class Session {
    * rejects if the WebSocket fails to send the command.
    */
   async endSession(): Promise<void> {
-    const params: SessionEndParams = {
+    const params: SessionEnd= {
       method: 'session.end',
       params: {}
     }

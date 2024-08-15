@@ -1,5 +1,5 @@
 import {BrowsingContext, BrowsingContextInfo, BrowsingContextNavigationInfo, UserPromptType} from "./types";
-import {sessionUserPromptHandlerType} from "../session/types";
+import {UserPromptHandlerType} from "../session/types";
 
 export type BrowsingContextUserPromptClosedParameters = {
   context: BrowsingContext,
@@ -10,7 +10,7 @@ export type BrowsingContextUserPromptClosedParameters = {
 
 export type BrowsingContextUserPromptOpenedParameters = {
   context: BrowsingContext,
-  handler: sessionUserPromptHandlerType,
+  handler: UserPromptHandlerType,
   message: string,
   type: UserPromptType,
   defaultValue?: string
