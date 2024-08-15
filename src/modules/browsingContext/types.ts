@@ -4,9 +4,7 @@ import {ScriptNodeRemoteValue, SerializationOptions, SharedReference} from "../s
 export type BrowsingContext = string;
 export type Navigation = string;
 
-export interface BrowsingContextInfoList {
-  browsingContextInfoList: BrowsingContextInfo[];
-}
+export type BrowsingContextInfoList = BrowsingContextInfo[];
 
 export type BrowsingContextInfo = {
   children: BrowsingContext[] | null;
