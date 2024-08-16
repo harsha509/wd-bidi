@@ -142,12 +142,16 @@ export default class Session {
    * @returns {Promise<void>} Promise that resolves if the session ends successfully,
    * rejects if the WebSocket fails to send the command.
    */
-  async endSession(): Promise<void> {
+  async end(): Promise<void> {
     const params: SessionEnd= {
       method: 'session.end',
       params: {}
     }
 
-    await this._ws.sendCommand(params);
+    return new Promise((resolve, reject) => {
+      this._ws.sendCommand(params)
+        .then(() => resolve())
+        .catch(error => reject(new Error(`Unable to end session: ${error}`)));
+    });
   }
 }
