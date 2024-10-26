@@ -1,10 +1,11 @@
 {
   "name": "wd-bidi",
-  "version": "0.0.4-alpha-19",
+  "version": "0.0.4-alpha-20",
   "description": "WebDriver BiDi API for automation testing",
   "main": "./build/cjs/index.js",
   "module": "./build/esm/index.js",
   "types": "./build/types/index.d.ts",
+  "packageManager": "pnpm@9.6.0",
   "scripts": {
     "clean": "rimraf ./build && rimraf ./docs",
     "build:es": "tsc",

@@ -1,11 +1,11 @@
 import {BiDi} from "../../index";
 import {
   BrowserClose,
-  CreateUserContext, CreateUserContextResult,
+  CreateUserContext, CreateUserContextResult, GetClientWindows, GetClientWindowsResult,
   GetUserContexts,
   GetUserContextsResult,
   RemoveUserContext,
-  RemoveUserContextParameters,
+  RemoveUserContextParameters, SetClientWindowState, SetClientWindowStateParameters, SetClientWindowStateResult,
 } from "./types";
 
 /**
@@ -53,6 +53,24 @@ export default class Browser {
         .catch(error => reject(error as CreateUserContextResult));
     })
   }
+
+  /**
+   * Getter for the clientWindows.
+   *
+   * @returns {Promise<GetClientWindowsResult>} - A promise that resolves to the clientWindows.
+   */
+  get clientWindows(): Promise<GetClientWindowsResult> {
+    const params: GetClientWindows = {
+      method: 'browser.getClientWindows',
+      params: {}
+    }
+
+    return new Promise<GetClientWindowsResult>((resolve, reject) => {
+      this._ws.sendCommand(params)
+          .then(response => resolve(response as GetClientWindowsResult))
+          .catch(error => reject(`Failed to fetch client windows: ${error}`))
+    })
+  }
   
   /**
    * Getter for the user contexts.
@@ -84,5 +102,23 @@ export default class Browser {
       params: context
     }
     await this._ws.sendCommand(params);
+  }
+
+  /**
+   * Method to set client windows
+   * @param {SetClientWindowStateParameters} context - The window context to set
+   * @returns {Promise<SetClientWindowStateResult>} - A promise that resolves when the windowState is set
+   */
+  async setClientWindowState(context: SetClientWindowStateParameters): Promise<SetClientWindowStateResult> {
+    const params: SetClientWindowState = {
+      method:'browser.setClientWindowState',
+      params: context
+    }
+
+    return new Promise<SetClientWindowStateResult>((resolve, reject) => {
+      this._ws.sendCommand(params)
+          .then(response => resolve(response as SetClientWindowStateResult))
+          .catch(error => reject(error as SetClientWindowStateResult));
+    })
   }
 }
