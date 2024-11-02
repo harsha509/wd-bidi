@@ -195,7 +195,7 @@ export default class BrowsingContext {
    * Sets the viewport size for the specific browsing context.
    * @param {EventType.BrowsingContextSetViewportParameters} viewportParameters - The parameters to set the viewport with.
    */
-  async setViewPort(viewportParameters: EventType.BrowsingContextSetViewportParameters): Promise<void> {
+  async setViewport(viewportParameters: EventType.BrowsingContextSetViewportParameters): Promise<void> {
     const params: EventType.BrowsingContextSetViewport = {
       method:'browsingContext.setViewport',
       params: viewportParameters
